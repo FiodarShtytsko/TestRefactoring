@@ -47,11 +47,11 @@ private extension MainViewController {
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.assets.count
+        return viewModel.cellViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = viewModel.assets[indexPath.row]
+        let model = viewModel.cellViewModels[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainColletctionViewCell.reuseIdentifier, for: indexPath) as? MainColletctionViewCell else {
             fatalError("Expected MainColletctionViewCell")
         }

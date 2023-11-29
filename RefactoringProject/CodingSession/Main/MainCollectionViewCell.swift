@@ -6,7 +6,11 @@
 //
 
 import UIKit
-import Photos
+
+struct MainCollectionViewCellModel {
+    let image: UIImage?
+    let durationText: String
+}
 
 final class MainColletctionViewCell: UICollectionViewCell {
     
@@ -33,24 +37,10 @@ final class MainColletctionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func configure(with asset: PHAsset) {
-        let requestOptions = PHImageRequestOptions()
-        
-        requestOptions.isSynchronous = false
-        requestOptions.deliveryMode = .highQualityFormat
-        
-        let targetSize = CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3)
-        PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: requestOptions) { [weak self] (image, _) in
-            self?.thumbImageView.image = image
-        }
-        
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.zeroFormattingBehavior = [.pad]
-        formatter.unitsStyle = .positional
-        
-        durationLabel.text = formatter.string(from: asset.duration)
+    
+    func configure(with viewModel: MainCollectionViewCellModel) {
+        thumbImageView.image = viewModel.image
+        durationLabel.text = viewModel.durationText
     }
     
     private func setupViews() {
